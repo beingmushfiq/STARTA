@@ -22,6 +22,9 @@ interface AppState {
     planTier: 'free' | 'pro';
   } | null;
 
+  // View
+  viewMode: 'grid' | 'list';
+
   // Customization
   appTheme: AppTheme;
   fontSize: FontSize;
@@ -59,6 +62,9 @@ interface AppContextType extends AppState {
   // Auth
   login: (user: NonNullable<AppState['user']>) => void;
   logout: () => void;
+
+  // View
+  setViewMode: (mode: 'grid' | 'list') => void;
 
   // Customization
   setAppTheme: (theme: AppTheme) => void;
@@ -106,6 +112,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       planTier: 'pro',
     },
 
+    viewMode: 'grid',
     appTheme: 'dark',
     fontSize: 'medium',
     density: 'comfortable',
@@ -150,6 +157,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
       collections: [],
       tags: [],
     }));
+  }, []);
+
+  const setViewMode = useCallback((viewMode: 'grid' | 'list') => {
+    setState(s => ({ ...s, viewMode }));
   }, []);
 
   const setAppTheme = useCallback((appTheme: AppTheme) => {
@@ -240,6 +251,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         toggleSidebar,
         login,
         logout,
+        setViewMode,
         setAppTheme,
         setFontSize,
         setDensity,

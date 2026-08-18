@@ -15,6 +15,8 @@ export function ViewHeader({ onAdd, onTriage }: ViewHeaderProps) {
     activeCollectionId,
     collections,
     bookmarks,
+    viewMode,
+    setViewMode,
     toggleCommandPalette,
   } = useApp();
 
@@ -94,16 +96,24 @@ export function ViewHeader({ onAdd, onTriage }: ViewHeaderProps) {
 
         {/* Grid view */}
         <button
+          onClick={() => setViewMode('grid')}
           className="p-2 rounded-lg transition-all duration-200 hover:bg-white/5 active:scale-[0.95]"
-          style={{ color: palette.textSecondary }}
+          style={{
+            color: viewMode === 'grid' ? palette.accentPrimary : palette.textMuted,
+            backgroundColor: viewMode === 'grid' ? 'rgba(255,85,0,0.08)' : undefined,
+          }}
         >
           <LayoutGrid size={16} />
         </button>
 
         {/* List view */}
         <button
+          onClick={() => setViewMode('list')}
           className="p-2 rounded-lg transition-all duration-200 hover:bg-white/5 active:scale-[0.95]"
-          style={{ color: palette.textMuted }}
+          style={{
+            color: viewMode === 'list' ? palette.accentPrimary : palette.textMuted,
+            backgroundColor: viewMode === 'list' ? 'rgba(255,85,0,0.08)' : undefined,
+          }}
         >
           <LayoutList size={16} />
         </button>

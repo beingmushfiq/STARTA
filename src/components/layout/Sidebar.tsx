@@ -1,9 +1,10 @@
 'use client';
 
+import { useState, useRef, useEffect } from 'react';
 import { useApp } from '@/lib/store';
 import { cn } from '@/lib/cn';
 import { palette, spring } from '@/lib/tokens';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { UserMenu } from '@/components/ui/UserMenu';
 import {
   Inbox,
@@ -17,6 +18,9 @@ import {
   Palette,
   Code2,
   Sparkles,
+  Plus,
+  X,
+  Folder,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -41,6 +45,7 @@ const collectionIconMap: Record<string, LucideIcon> = {
   palette: Palette,
   code: Code2,
   sparkles: Sparkles,
+  folder: Folder,
 };
 
 /* ------------------------------------------------------------------ */
@@ -56,7 +61,39 @@ export function Sidebar() {
     setActiveView,
     setActiveCollectionId,
     toggleSidebar,
+    addCollection,
   } = useApp();
+
+  const [addingCollection, setAddingCollection] = useState(false);
+  const [newCollectionName, setNewCollectionName] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (addingCollection && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [addingCollection]);
+
+  const handleCreateCollection = () => {
+    if (newCollectionName.trim()) {
+      const colors = ['#635BFF', '#FF5500', '#34D399', '#FBBF24', '#38BDF8', '#F472B6', '#A78BFA'];
+      const newCollection = {
+        id: `col-${Date.now()}`,
+        tenantId: 't_1',
+        name: newCollectionName.trim(),
+        slug: newCollectionName.trim().toLowerCase().replace(/\s+/g, '-'),
+        colorHex: colors[Math.floor(Math.random() * colors.length)],
+        iconIdentifier: 'folder',
+        isSmartCollection: false,
+        filterRules: {},
+        createdAt: new Date(),
+      };
+      addCollection(newCollection);
+      setNewCollectionName('');
+      setAddingCollection(false);
+      setActiveCollectionId(newCollection.id);
+    }
+  };
 
   return (
     <aside
@@ -223,7 +260,7 @@ export function Sidebar() {
         {/* ============================================================ */}
         {/*  Collections                                                  */}
         {/* ============================================================ */}
-        {sidebarOpen && collections.length > 0 && (
+        {sidebarOpen && (
           <div className="pt-5">
             <div className="flex items-center justify-between px-3 mb-1.5">
               <span
@@ -235,7 +272,70 @@ export function Sidebar() {
               >
                 Collections
               </span>
+              <motion.button
+                onClick={() => setAddingCollection(!addingCollection)}
+                className="p-1 rounded-md transition-all"
+                style={{
+                  color: addingCollection ? palette.accentPrimary : palette.textMuted,
+                  backgroundColor: addingCollection ? 'rgba(255,85,0,0.1)' : undefined,
+                }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                {addingCollection ? <X size={12} /> : <Plus size={12} />}
+              </motion.button>
             </div>
+
+            {/* Add collection input */}
+            <AnimatePresence>
+              {addingCollection && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="overflow-hidden px-3 mb-1.5"
+                >
+                  <form
+                    onSubmit={(e) => { e.preventDefault(); handleCreateCollection(); }}
+                    className="flex items-center gap-2"
+                  >
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      value={newCollectionName}
+                      onChange={(e) => setNewCollectionName(e.target.value)}
+                      placeholder="Collection name..."
+                      className="flex-1 px-2.5 py-1.5 rounded-lg text-[13px] outline-none"
+                      style={{
+                        fontFamily: 'var(--font-ui), -apple-system, sans-serif',
+                        backgroundColor: 'rgba(255,255,255,0.04)',
+                        border: `1px solid ${palette.borderSubtle}`,
+                        color: palette.textPrimary,
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Escape') {
+                          setAddingCollection(false);
+                          setNewCollectionName('');
+                        }
+                      }}
+                    />
+                    <motion.button
+                      type="submit"
+                      className="p-1.5 rounded-lg"
+                      style={{
+                        backgroundColor: palette.accentPrimary,
+                        color: '#fff',
+                      }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Plus size={12} />
+                    </motion.button>
+                  </form>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {collections.map((col) => {
               const isActive = activeView === 'collection' && activeCollectionId === col.id;
