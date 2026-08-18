@@ -1,0 +1,31 @@
+{
+  "name": "strata",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "lint": "eslint",
+    "docker:build": "docker build -t strata .",
+    "docker:run": "docker run -p 3000:3000 --env-file .env.local strata"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "framer-motion": "^13.1.0",
+    "lucide-react": "^1.32.0",
+    "next": "^14.2.29",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "eslint": "^9",
+    "eslint-config-next": "^14.2.29",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

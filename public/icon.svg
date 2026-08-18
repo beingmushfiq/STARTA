@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <rect width="128" height="128" rx="28" fill="#08090A"/>
+  <rect x="1" y="1" width="126" height="126" rx="27" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <path d="M40 32h48c4.4 0 8 3.6 8 8v48c0 4.4-3.6 8-8 8H40c-4.4 0-8-3.6-8-8V40c0-4.4 3.6-8 8-8z" fill="#FF5500" opacity="0.15"/>
+  <path d="M52 44L64 56L76 44" stroke="#FF5500" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M52 72h24" stroke="#FF5500" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+  <path d="M52 80h16" stroke="#FF5500" stroke-width="3" stroke-linecap="round" opacity="0.3"/>
+  <text x="64" y="62" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="800" fill="#FF5500" letter-spacing="-0.5">S</text>
+</svg>

@@ -1,0 +1,30 @@
+{
+  "name": "STRATA — Visual Knowledge & Bookmarking Engine",
+  "short_name": "STRATA",
+  "description": "A hyper-premium, local-first, motion-driven visual knowledge and bookmarking platform.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#08090A",
+  "theme_color": "#08090A",
+  "orientation": "any",
+  "scope": "/",
+  "categories": ["productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
