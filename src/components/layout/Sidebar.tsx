@@ -25,15 +25,15 @@ import {
 import type { LucideIcon } from 'lucide-react';
 
 /* ------------------------------------------------------------------ */
-/*  Navigation items                                                   */
+/*  Navigation items (counts computed dynamically)                     */
 /* ------------------------------------------------------------------ */
 
-const navItems = [
-  { id: 'inbox' as const, label: 'Inbox', icon: Inbox, count: 4 },
-  { id: 'pinned' as const, label: 'Pinned', icon: Pin, count: 3 },
-  { id: 'reader' as const, label: 'Reader', icon: BookOpen, count: null },
-  { id: 'archive' as const, label: 'Archive', icon: Archive, count: 12 },
-  { id: 'trash' as const, label: 'Trash', icon: Trash2, count: null },
+const navItemDefs = [
+  { id: 'inbox' as const, label: 'Inbox', icon: Inbox },
+  { id: 'pinned' as const, label: 'Pinned', icon: Pin },
+  { id: 'reader' as const, label: 'Reader', icon: BookOpen, hideCount: true },
+  { id: 'archive' as const, label: 'Archive', icon: Archive },
+  { id: 'trash' as const, label: 'Trash', icon: Trash2 },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -58,11 +58,25 @@ export function Sidebar() {
     activeCollectionId,
     collections,
     sidebarOpen,
+    bookmarks,
     setActiveView,
     setActiveCollectionId,
     toggleSidebar,
     addCollection,
   } = useApp();
+
+  // Compute dynamic counts from bookmarks
+  const navItems = navItemDefs.map((item) => {
+    if (item.hideCount) return { ...item, count: null };
+    const count = bookmarks.filter((b) => {
+      if (item.id === 'inbox') return b.status === 'inbox';
+      if (item.id === 'pinned') return b.isPinned;
+      if (item.id === 'archive') return b.status === 'archived';
+      if (item.id === 'trash') return b.status === 'trash';
+      return false;
+    }).length;
+    return { ...item, count };
+  });
 
   const [addingCollection, setAddingCollection] = useState(false);
   const [newCollectionName, setNewCollectionName] = useState('');
@@ -340,6 +354,7 @@ export function Sidebar() {
             {collections.map((col) => {
               const isActive = activeView === 'collection' && activeCollectionId === col.id;
               const IconComp = collectionIconMap[col.iconIdentifier] ?? FlaskConical;
+              const colCount = bookmarks.filter((b) => b.collectionId === col.id).length;
 
               return (
                 <motion.button
@@ -387,6 +402,22 @@ export function Sidebar() {
                   </span>
 
                   <span className="relative z-10 flex-1 text-left truncate">{col.name}</span>
+
+                  {/* ---- Bookmark count ---- */}
+                  {colCount > 0 && (
+                    <span
+                      className="relative z-10 text-[11px] tabular-nums min-w-5 text-center rounded-full px-1.5 py-px"
+                      style={{
+                        fontFamily: 'var(--font-mono), "JetBrains Mono", "SF Mono", monospace',
+                        backgroundColor: isActive
+                          ? 'rgba(255, 85, 0, 0.15)'
+                          : 'rgba(255, 255, 255, 0.04)',
+                        color: isActive ? palette.accentPrimary : palette.textMuted,
+                      }}
+                    >
+                      {colCount}
+                    </span>
+                  )}
 
                   {/* ---- Color indicator ---- */}
                   <span
