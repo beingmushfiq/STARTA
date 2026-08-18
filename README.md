@@ -1,24 +1,139 @@
-# STRATA — Visual Knowledge & Bookmarking Engine
+<div align="center">
 
-> A hyper-premium, local-first, motion-driven visual knowledge and bookmarking platform. Never lose a link again.
+# STRATA
 
-STRATA eliminates the "bookmark graveyard" through an editorial aesthetic, physics-based kinetic animations, intelligent content extraction, and frictionless Google SSO onboarding.
+### Visual Knowledge & Bookmarking Engine
+
+A hyper-premium, local-first, motion-driven visual knowledge and bookmarking platform.
+Never lose a link again.
+
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)](https://typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?style=flat-square&logo=tailwindcss)](https://tailwindcss.com)
+[![Framer Motion](https://img.shields.io/badge/Framer-Motion-13-ff5500?style=flat-square)](https://framer.com/motion)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+
+<br />
+
+[**Deploy on Vercel**](https://vercel.com/new/clone?repository-url=https://github.com/beingmushfiq/STARTA) · [**Deploy on Netlify**](https://app.netlify.com/start/deploy?repository=https://github.com/beingmushfiq/STARTA) · [**Deploy with Docker**](#docker)
+
+<br />
+
+</div>
 
 ---
 
-## Features
+## Highlights
 
-- **Dynamic Masonry Canvas** — Responsive card grid with extracted cover art, auto-generated color tags, and spring-physics animations
-- **Editorial Reader View** — Adjustable column widths (50ch–75ch), dark/sepia modes, margin notes, and text-to-speech
-- **Focus Stream (Triage Mode)** — Full-screen distraction-free triage for high-velocity inbox clearing with swipe and keyboard shortcuts
-- **Semantic Hybrid Search** — Command+K palette with vector embeddings and cosine similarity for natural-language queries
-- **Universal Keyboard Navigation** — J/K, E (archive), D (delete), Space (read), and more
-- **Cursor-following Highlight** — Radial specular gradient tracking cursor coordinates
-- **Add Bookmark Modal** — Quick URL capture with auto-extraction
-- **Plan Gating** — Free (250 bookmarks) and Pro (unlimited) tiers with Stripe integration
-- **Responsive Design** — Desktop sidebar, mobile bottom navigation with safe area support
-- **PWA Ready** — Installable as a Progressive Web App with offline support
-- **Security Hardened** — CSP headers, X-Frame-Options DENY, frame-ancestors none
+<table>
+<tr>
+<td width="50%">
+
+**Dynamic Masonry Canvas**
+Responsive card grid with extracted cover art, auto-generated color tags, and spring-physics animations.
+
+**Editorial Reader View**
+Adjustable column widths (50ch–75ch), dark/sepia modes, margin notes, and text-to-speech.
+
+**Focus Stream (Triage)**
+Full-screen distraction-free triage for high-velocity inbox clearing with swipe and keyboard shortcuts.
+
+</td>
+<td width="50%">
+
+**Semantic Search**
+Command+K palette with vector embeddings and cosine similarity for natural-language queries.
+
+**Keyboard Navigation**
+`J` / `K` navigate, `E` archive, `D` delete, `Space` read, `⌘K` search — pure keyboard workflow.
+
+**Plan Gating**
+Free (250 bookmarks) and Pro (unlimited) tiers with Stripe integration.
+
+</td>
+</tr>
+</table>
+
+---
+
+## Quick Start
+
+### Prerequisites
+
+- **Node.js** 18+ (recommended: 20+)
+- **npm**, **yarn**, or **pnpm**
+
+### 1. Clone & Install
+
+```bash
+git clone https://github.com/beingmushfiq/STARTA.git
+cd STARTA
+npm install
+```
+
+### 2. Configure
+
+```bash
+cp .env.example .env.local
+```
+
+Edit `.env.local` with your credentials. See [Environment Variables](#environment-variables) below.
+
+### 3. Run
+
+```bash
+npm run dev
+```
+
+Open **http://localhost:3001** in your browser.
+
+---
+
+## Deployment
+
+### Vercel (Recommended)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/beingmushfiq/STARTA)
+
+```bash
+npm i -g vercel
+vercel --prod
+```
+
+Free tier: serverless functions, edge network, automatic HTTPS, custom domains.
+
+### Netlify
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/beingmushfiq/STARTA)
+
+```bash
+npm i -g netlify-cli
+npm run build
+netlify deploy --prod --dir=.next
+```
+
+### Docker
+
+```bash
+# Build
+docker build -t strata .
+
+# Run
+docker run -p 3000:3000 --env-file .env.local strata
+
+# Or use Docker Compose
+docker-compose up -d
+```
+
+### Any Node.js Host
+
+```bash
+npm ci --omit=dev
+npm run build
+npm start
+```
+
+Server starts on port **3000**.
 
 ---
 
@@ -40,33 +155,62 @@ STRATA eliminates the "bookmark graveyard" through an editorial aesthetic, physi
 
 ---
 
-## Getting Started
+## Keyboard Shortcuts
 
-### Prerequisites
+| Key | Action |
+|-----|--------|
+| `J` / `K` or `↓` / `↑` | Navigate items |
+| `Enter` / `Space` | Open in Reader |
+| `E` | Archive bookmark |
+| `D` / `Delete` | Move to trash |
+| `⌘K` / `Ctrl+K` | Command palette / Search |
+| `O` | Open original URL |
+| `Escape` | Exit triage / reader |
 
-- Node.js 18+ (recommended: 20+)
-- npm, yarn, or pnpm
+---
 
-### Installation
+## Design System
 
-```bash
-# Clone the repository
-git clone https://github.com/your-username/strata.git
-cd strata
+STRATA follows **Swiss Graphic Design meets Physical Stationery** aesthetic:
 
-# Install dependencies
-npm install
+| Token | Value | Usage |
+|-------|-------|-------|
+| Background | `#08090A` | OLED black canvas |
+| Surface Base | `#0F1115` | Cards, panels |
+| Surface Float | `#16191F` | `blur(24px) saturate(180%)` |
+| Accent Primary | `#FF5500` | Signal Amber |
+| Accent Secondary | `#635BFF` | Electric Iris |
+| Text Primary | `#F2F4F8` | Headings, body |
+| Text Secondary | `#8A909E` | Descriptions |
+| Text Muted | `#525866` | Meta, hints |
 
-# Copy environment variables
-cp .env.example .env.local
+All transitions use hardware-accelerated spring curves via Framer Motion.
 
-# Start development server
-npm run dev
+---
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── api/               # API routes (auth, bookmarks, stripe)
+│   ├── login/             # Login page
+│   ├── settings/          # Settings page
+│   ├── globals.css        # Global design system
+│   ├── layout.tsx         # Root layout with SEO/meta
+│   └── page.tsx           # Main application
+├── components/
+│   ├── layout/            # AppShell, Sidebar, MobileNav, CursorHighlight
+│   ├── reader/            # Editorial Reader view
+│   ├── ui/                # BookmarkCard, MasonryGrid, CommandPalette, etc.
+│   └── views/             # BookmarksView, TriageView
+├── hooks/                 # useKeyboardNav
+└── lib/                   # Design tokens, types, store, mock data
 ```
 
-Open [http://localhost:3001](http://localhost:3001) in your browser.
+---
 
-### Environment Variables
+## Environment Variables
 
 | Variable | Description | Required |
 |----------|-------------|----------|
@@ -82,133 +226,17 @@ Open [http://localhost:3001](http://localhost:3001) in your browser.
 
 ---
 
-## Project Structure
+## Production Checklist
 
-```
-strata/
-├── src/
-│   ├── app/                    # Next.js App Router pages
-│   │   ├── api/               # API routes (auth, bookmarks, stripe)
-│   │   ├── login/             # Login page
-│   │   ├── settings/          # Settings page
-│   │   ├── globals.css        # Global design system
-│   │   ├── layout.tsx         # Root layout with SEO/meta
-│   │   └── page.tsx           # Main application
-│   ├── components/
-│   │   ├── layout/            # AppShell, Sidebar, MobileNav, CursorHighlight
-│   │   ├── reader/            # Editorial Reader view
-│   │   ├── ui/                # BookmarkCard, MasonryGrid, CommandPalette, etc.
-│   │   └── views/             # BookmarksView, TriageView
-│   ├── hooks/                 # useKeyboardNav
-│   └── lib/                   # Design tokens, types, store, mock data
-├── public/                    # PWA manifest, icons, static assets
-├── vercel.json                # Vercel deployment config
-├── Dockerfile                 # Docker build config
-├── docker-compose.yml         # Docker Compose config
-├── netlify.toml               # Netlify deployment config
-├── .env.example               # Environment variable template
-└── .env.local                 # Local environment variables
-```
-
----
-
-## Keyboard Shortcuts
-
-| Key | Action |
-|-----|--------|
-| `J` / `K` or `↓` / `↑` | Navigate items |
-| `Enter` / `Space` | Open in Reader |
-| `E` | Archive bookmark |
-| `D` / `Delete` | Move to trash |
-| `⌘K` / `Ctrl+K` | Command palette / Search |
-| `C` | Collection selector |
-| `T` | Focus tag input |
-| `O` | Open original URL |
-
----
-
-## Design System
-
-STRATA follows **Swiss Graphic Design meets Physical Stationery** aesthetic:
-
-- **Background (OLED):** `#08090A`
-- **Surface Baseplate:** `#0F1115`
-- **Surface Floating:** `#16191F` with `backdrop-filter: blur(24px) saturate(180%)`
-- **Accent Primary (Signal Amber):** `#FF5500`
-- **Accent Secondary (Electric Iris):** `#635BFF`
-- **Text Primary:** `#F2F4F8` | Secondary: `#8A909E` | Muted: `#525866`
-
-All transitions use hardware-accelerated spring curves via Framer Motion.
-
----
-
-## Deployment
-
-### Option 1: Vercel (Recommended)
-
-```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Deploy to preview
-vercel
-
-# Deploy to production
-vercel --prod
-```
-
-Set environment variables in Vercel dashboard. Free tier includes: serverless functions, edge network, automatic HTTPS, and custom domains.
-
-### Option 2: Docker
-
-```bash
-# Build the image
-docker build -t strata .
-
-# Run with environment file
-docker run -p 3000:3000 --env-file .env.local strata
-
-# Or use Docker Compose
-docker-compose up -d
-```
-
-### Option 3: Netlify
-
-```bash
-# Install Netlify CLI
-npm i -g netlify-cli
-
-# Build and deploy
-npm run build
-netlify deploy --prod --dir=.next
-```
-
-### Option 4: Any Node.js Host
-
-```bash
-# Install dependencies
-npm ci --omit=dev
-
-# Build
-npm run build
-
-# Start production server
-npm start
-```
-
-The server will start on port 3000.
-
-### Production Checklist
-
-1. Set all environment variables in your hosting dashboard
-2. Configure Google OAuth redirect URLs for your production domain
-3. Set up Stripe webhook endpoints pointing to `/api/stripe/webhook`
-4. Run database migrations against your production PostgreSQL
-5. Verify CSP headers and security settings
-6. Generate a secure `SESSION_ENCRYPTION_KEY` (64 random characters)
+- [ ] Set all environment variables in your hosting dashboard
+- [ ] Configure Google OAuth redirect URLs for your production domain
+- [ ] Set up Stripe webhook endpoints pointing to `/api/stripe/webhook`
+- [ ] Run database migrations against your production PostgreSQL
+- [ ] Verify CSP headers and security settings
+- [ ] Generate a secure `SESSION_ENCRYPTION_KEY` (64 random characters)
 
 ---
 
 ## License
 
-MIT © STRATA
+MIT © [STRATA](https://github.com/beingmushfiq/STARTA)

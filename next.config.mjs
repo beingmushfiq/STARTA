@@ -11,6 +11,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "**.cloudflare.com",
       },
+      {
+        protocol: "https",
+        hostname: "**.trae.ai",
+      },
     ],
   },
   headers: async () => [
@@ -27,7 +31,7 @@ const nextConfig = {
             "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
             "font-src 'self' https://fonts.gstatic.com",
-            "img-src 'self' https://coresg-normal.trae.ai https://*.cloudflare.com data: blob:",
+            "img-src 'self' https://*.trae.ai https://*.cloudflare.com data: blob:",
             "connect-src 'self'",
             "frame-ancestors 'none'",
           ].join("; "),

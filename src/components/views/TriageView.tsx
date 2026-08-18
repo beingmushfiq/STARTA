@@ -19,7 +19,7 @@ import Image from 'next/image';
 type SwipeResult = 'archived' | 'deleted' | null;
 
 export function TriageView() {
-  const { bookmarks, setActiveView, updateBookmark } = useApp();
+  const { bookmarks, setActiveView, updateBookmark, setTriageMode } = useApp();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [swipeResult, setSwipeResult] = useState<SwipeResult>(null);
@@ -70,7 +70,7 @@ export function TriageView() {
       if (e.key === 'd' || e.key === 'Delete') trash();
       if (e.key === 'ArrowRight' || e.key === 'j') goNext();
       if (e.key === 'ArrowLeft' || e.key === 'k') goPrev();
-      if (e.key === 'Escape') setActiveView('inbox');
+      if (e.key === 'Escape') { setTriageMode(false); setActiveView('inbox'); }
       if (e.key === ' ') {
         e.preventDefault();
         if (current) window.open(current.url, '_blank');
@@ -139,7 +139,7 @@ export function TriageView() {
             transition={{ delay: 0.6, duration: 0.4 }}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            onClick={() => setActiveView('inbox')}
+            onClick={() => { setTriageMode(false); setActiveView('inbox'); }}
             className="mt-2 px-6 py-2.5 rounded-xl text-sm font-semibold transition-all"
             style={{
               fontFamily: typography.ui,
@@ -225,7 +225,7 @@ export function TriageView() {
         style={{ borderBottom: `1px solid ${palette.borderSubtle}` }}
       >
         <button
-          onClick={() => setActiveView('inbox')}
+          onClick={() => { setTriageMode(false); setActiveView('inbox'); }}
           className="flex items-center gap-1.5 text-sm transition-all hover:gap-2.5"
           style={{ fontFamily: typography.ui, color: palette.textSecondary }}
         >

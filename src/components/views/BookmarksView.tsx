@@ -10,8 +10,7 @@ import { TriageView } from './TriageView';
 import { useKeyboardNav } from '@/hooks/useKeyboardNav';
 
 export function BookmarksView() {
-  const { activeView, activeCollectionId, bookmarks } = useApp();
-  const [triageMode, setTriageMode] = useState(false);
+  const { activeView, activeCollectionId, bookmarks, triageMode, setTriageMode } = useApp();
   const [addModalOpen, setAddModalOpen] = useState(false);
 
   const isReader = activeView === 'reader';

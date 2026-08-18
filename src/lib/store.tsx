@@ -36,6 +36,9 @@ interface AppState {
   selectedBookmarkId: string | null;
   focusedIndex: number;
 
+  // Triage
+  triageMode: boolean;
+
   // Command palette
   commandPaletteOpen: boolean;
 
@@ -74,6 +77,7 @@ interface AppContextType extends AppState {
   // Selection
   selectBookmark: (id: string | null) => void;
   setFocusedIndex: (index: number) => void;
+  setTriageMode: (v: boolean) => void;
   toggleCommandPalette: () => void;
 
   // Search
@@ -111,6 +115,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     tags: [],
     selectedBookmarkId: null,
     focusedIndex: 0,
+    triageMode: false,
     commandPaletteOpen: false,
     searchQuery: '',
     searchMode: 'fulltext',
@@ -202,6 +207,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setState(s => ({ ...s, focusedIndex: index }));
   }, []);
 
+  const setTriageMode = useCallback((triageMode: boolean) => {
+    setState(s => ({ ...s, triageMode }));
+  }, []);
+
   const toggleCommandPalette = useCallback(() => {
     setState(s => ({ ...s, commandPaletteOpen: !s.commandPaletteOpen }));
   }, []);
@@ -243,6 +252,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         setTags,
         selectBookmark,
         setFocusedIndex,
+        setTriageMode,
         toggleCommandPalette,
         setSearchQuery,
         setSearchMode,
